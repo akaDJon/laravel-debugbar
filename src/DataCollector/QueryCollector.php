@@ -485,6 +485,18 @@ class QueryCollector extends PDOCollector
         $totalMemory = 0;
         $queries = $this->queries;
 
+        // IWAmod >>>
+        // убираем из вывода db запрос обновления сессии, потому что в нем лежит тяжелый _dump
+        $q = 'update `' . config('session.table') . '` set `payload` = ';
+        $mask = '"..." (hidden because of _dump)';
+        foreach ($queries as $key => $query) {
+            if (str_starts_with($query['query'], $q)) {
+                $queries[$key]['query'] = $q . $mask;
+                $queries[$key]['bindings'][0] = $mask;
+            }
+        }
+        // <<< IWAmod
+
         $statements = [];
         foreach ($queries as $query) {
             $source = reset($query['source']);
