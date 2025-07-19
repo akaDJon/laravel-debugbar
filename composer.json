@@ -1,5 +1,6 @@
 {
-    "name": "barryvdh/laravel-debugbar",
+    "name": "akadjon/laravel-debugbar",
+    "version": "3.15.4.1",
     "description": "PHP Debugbar integration for Laravel",
     "keywords": [
         "laravel",
